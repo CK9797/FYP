@@ -1,0 +1,477 @@
+<!--
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<div class="modal fade" id="addAssetModal" tabindex="-1" role="dialog" aria-labelledby="addAssetModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="addAssetModalLabel">Create asset</h4>
+          <p class="modal-intro">Enter the required values below.</p>
+      </div>
+      <form [formGroup]="myForm">
+        <div class="modal-body">
+
+
+          
+
+            
+              <div class="form-group text-left">
+                <label for="contractid">contractid</label>
+                
+                  <input formControlName="contractid" type="text" class="form-control">
+                
+              </div>
+            
+          
+
+            
+              <div class="form-group text-left">
+                <label for="date">date</label>
+                
+                  <input formControlName="date" type="text" class="form-control">
+                
+              </div>
+            
+          
+
+            
+              <div class="form-group text-left">
+                <label for="details">details</label>
+                
+                  <input formControlName="details" type="text" class="form-control">
+                
+              </div>
+            
+          
+
+            
+              <div class="form-group text-left">
+                <label for="price">price</label>
+                
+                  <input formControlName="price" type="text" class="form-control">
+                
+              </div>
+            
+          
+
+            
+              <label for="status">status</label>
+              <div class="checkbox">
+                
+                  <label>
+                    <input
+                      
+                        formControlName="status"
+                      
+                      name="status"
+                      value="ACCEPTED"
+                      type="radio"
+                      
+                    />
+                    ACCEPTED
+                  </label>
+                
+                  <label>
+                    <input
+                      
+                        formControlName="status"
+                      
+                      name="status"
+                      value="REJECTED"
+                      type="radio"
+                      
+                    />
+                    REJECTED
+                  </label>
+                
+                  <label>
+                    <input
+                      
+                        formControlName="status"
+                      
+                      name="status"
+                      value="AWAITING"
+                      type="radio"
+                      
+                    />
+                    AWAITING
+                  </label>
+                
+              </div>
+            
+          
+
+            
+              <div class="form-group text-left">
+                <label for="Customerid">Customerid</label>
+                
+                    <textarea formControlName="Customerid" class="form-control" rows="3"></textarea>
+                
+              </div>
+            
+          
+
+            
+              <div class="form-group text-left">
+                <label for="Staffid">Staffid</label>
+                
+                    <textarea formControlName="Staffid" class="form-control" rows="3"></textarea>
+                
+              </div>
+            
+          
+
+            
+              <div class="form-group text-left">
+                <label for="Proposalid">Proposalid</label>
+                
+                    <textarea formControlName="Proposalid" class="form-control" rows="3"></textarea>
+                
+              </div>
+            
+          
+
+            
+              <div class="form-group text-left">
+                <label for="Deal">Deal</label>
+                
+                    <textarea formControlName="Deal" class="form-control" rows="3"></textarea>
+                
+              </div>
+            
+          
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          <button (click)="addAsset(myForm);" type="submit" class="btn btn-success" data-dismiss="modal">Confirm</button>
+
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="updateAssetModal" tabindex="-1" role="dialog" aria-labelledby="updateAssetModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="updateAssetModalLabel">Contract Information</h4>
+      </div>
+      <form [formGroup]="myForm">
+        <div class="modal-body">
+
+
+          
+            <div class="form-group text-left" *ngIf="contractid1 != null">
+              <label for="contractid">Contract Number</label>
+              
+              
+                <input value="{{contractid1}}"  class="form-control" disabled="disabled">  
+              
+
+            </div>
+          
+            <div class="form-group text-left" *ngIf="date1 != null">
+              <label for="date">Date</label>
+              
+              
+                <input value="{{date1}}" readonly type="text" class="form-control">
+              
+
+            </div>
+          
+            <div class="form-group text-left" *ngIf="details1 != null">
+              <label for="details">Details</label>
+              
+              
+                <input readonly value="{{details1}}"  type="text" class="form-control">
+              
+
+            </div>
+          
+            <div class="form-group text-left" *ngIf="price1 != null">
+              <label for="price">Price</label>
+              
+              
+                
+                  <textarea value="{{price1}}" readonly  class="form-control" rows="3"></textarea>
+                
+              
+
+            </div>
+          
+            <div class="form-group text-left" *ngIf="status1 != null">
+              <label for="status">Status</label>
+              
+              
+              <textarea readonly value="{{status1}}"  class="form-control" rows="3"></textarea>
+                
+              
+
+            
+          
+
+
+            </div>
+
+            <div class="form-group text-left" *ngIf="RejectReason1 != null">
+              <label for="RejectReason">Reason</label>
+              
+              
+                
+                  <textarea value="{{RejectReason1}}" readonly  class="form-control" rows="3"></textarea>
+                
+              
+
+            </div>
+        </div>
+
+        <div class="modal-footer" style="text-align: center">
+          <button type="button" class="btn btn-default2" data-dismiss="modal">Close</button>
+        
+        <!--ng-container *ngIf="status1 === 'AWAITING'; else accept">
+                <button (click)="setId(asset.proposalid, asset.Customerid, asset.Deal);" type="button" class="btn btn-success" data-toggle="modal" data-target="#addTransactionModal">
+                  Accept
+              </button>
+  
+              <button (click)="setId(asset.proposalid, asset.Customerid, asset.Deal);" type="button" class="btn btn-default" data-toggle="modal" data-target="#addTransaction2Modal">
+                Reject
+            </button>
+              </ng-container>
+              <ng-template #accept>
+                <ng-container *ngIf="status1 === 'ACCEPTED'; else reject ">
+          <button type="button" class="btn btn-default2" data-dismiss="modal">Close</button>
+        </ng-container>
+              </ng-template>
+              <ng-template #reject>
+                <ng-container *ngIf="status1 === 'REJECTED'">
+                  <button type="button" class="btn btn-default2" data-dismiss="modal">Close</button>
+                </ng-container>
+              </ng-template>-->
+            </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal fade" id="addTransactionModal" tabindex="-1" role="dialog" aria-labelledby="addTransactionModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="addTransactionModalLabel">Accept Contract</h4>
+      </div>
+      <form [formGroup]="myForm">
+        <div class="modal-body">
+          Are you sure you want to accept contract {{currentId}}?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+          <button (click)="addTransaction()" type="submit" class="btn btn-danger" data-dismiss="modal">Yes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="addTransaction2Modal" tabindex="-1" role="dialog" aria-labelledby="addTransaction2ModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="addTransaction2ModalLabel">Reject Contract</h4>
+      </div>
+      <form [formGroup]="myForm">
+        <div class="modal-body">
+          <div class="form-group text-left">
+            <label for="rejectreason">Reason to reject</label>
+            
+            
+              <input type="text" class="form-control" required #rejectreason>
+            
+  
+          </div>        
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+          <button (click)="addTransaction2(rejectreason.value)" type="submit" class="btn btn-reject" data-dismiss="modal">Reject</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="addPOModal" tabindex="-1" role="dialog" aria-labelledby="addPOModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="addPOModalLabel">Initiate Purchase Order</h4>
+        <p class="modal-intro">Enter the required values below.</p>
+      </div>
+      <form [formGroup]="myForm" (ngSubmit)="addPO(date_insert, details_insert)">
+        <div class="modal-body">
+
+
+          
+
+            
+              <!--div class="form-group text-left">
+                <label for="POid">POid</label>
+                  <input formControlName="POid" [(ngModel)]="POid_insert" ty pe="text" class="form-control" required #POid>
+                
+              </div>
+            -->
+          
+
+            
+              <div class="form-group text-left">
+                <label for="date">date</label>
+                
+                  <input formControlName="date" [(ngModel)]="date_insert" type="date" class="form-control" required #date>
+                
+              </div>
+            
+          
+
+            
+              <div class="form-group text-left">
+                <label for="details">details</label>
+                
+                  <input formControlName="details"[(ngModel)]="details_insert" type="text" class="form-control" required #details>
+                
+              </div>
+            
+        
+          
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button (click)="addPO(date.value, details.value);" type="submit" class="btn btn-danger" data-dismiss="modal">Confirm</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+<div class="container2">
+	<div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+		<strong>Error:</strong> {{errorMessage}}
+	</div>
+  
+  <div class="row">
+    <div class="col-md-9">
+        <h1 class="asset-title" id='assetName'>Contract</h1>
+    </div>
+    
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table table-responsive">
+        <thead class="thead">
+          <tr class="thead-cols">
+            
+                <th class="info">Contractid</th>
+            
+                <!--th class="info">Date</th>
+            
+                <th class="info">Details</th>
+            
+                <th class="info">Price</th>
+            
+                <th class="info">Status</th>
+            
+                <th class="info">Customerid</th>-->
+            
+                <th class="info">Staffid</th>
+            
+                <th class="info">Proposalid</th>
+            
+                <th class="info">Deal</th>
+            
+              <th class="info-actions">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let asset of allAssets">
+
+            
+                <td class="asset-properties">{{asset.contractid}}</td>
+            
+                <!--td class="asset-properties">{{asset.date}}</td>
+            
+                <td class="asset-properties">{{asset.details}}</td>
+            
+                <td class="asset-properties">{{asset.price}}</td>
+            
+                <td class="asset-properties">{{asset.status}}</td>
+            
+                <td class="asset-properties">{{asset.Customerid.split("#")[1]}}</td>-->
+            
+                <td class="asset-properties">{{asset.Staffid.split("#")[1]}}</td>
+            
+                <td class="asset-properties">{{asset.Proposalid.split("#")[1]}}</td>
+            
+                <td class="asset-properties">{{asset.Deal.split("#")[1]}}</td>
+            
+            <td class="asset-properties">
+              <button (click)="setId2(asset.contractid,asset.date,asset.details,asset.price,asset.status,asset.Customerid,asset.Staffid,asset.Proposalid,asset.Deal,asset.RejectReason);" type="button" class="btn btn-danger" data-toggle="modal" data-target="#updateAssetModal">
+                View
+            </button>
+              <ng-container *ngIf="asset.status === 'AWAITING', else accept">
+              <button (click)="setId(asset.contractid, asset.Customerid, asset.Deal);" type="button" class="btn btn-accept" data-toggle="modal" data-target="#addTransactionModal">
+                  Accept
+              </button>
+
+              <button (click)="setId(asset.contractid, asset.Customerid, asset.Deal);" type="button" class="btn btn-reject" data-toggle="modal" data-target="#addTransaction2Modal">
+                  Reject
+              </button>
+            </ng-container>
+            <!--ng-template #reject>
+              <ng-container *ngIf="asset.status === 'REJECTED'; else accept">
+              <p>You Rejected due to {{asset.RejectReason}}</p>
+              </ng-container>
+            </ng-template>-->
+            <ng-template #accept>
+              <ng-container>
+                <div *ngIf="asset.status === 'ACCEPTED'">
+              <button (click)="setId(asset.contractid, asset.Customerid, asset.Deal);" type="button" class="btn btn-PO" data-toggle="modal" data-target="#addPOModal"> 
+                Initiate PO
+              </button>
+            </div>
+              </ng-container>
+            </ng-template>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

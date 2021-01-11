@@ -1,0 +1,436 @@
+<!--
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+ http://www.apache.org/licenses/LICENSE-2.0
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+<div class="container">
+	<div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+		<strong>Error:</strong> {{errorMessage}}
+	</div>
+
+    <div *ngIf="!searchSuccess">
+      <div id="search-form">
+        
+          <input type="text" placeholder="Enter Deal Number" [(ngModel)]="searchValue">
+          <button class = "btn btn-search" (click)="find()">Search</button>
+        
+      </div>
+    </div>
+
+    <div class="container" *ngIf="searchSuccess">
+      <div class="asset-title">
+          <h1>Tracking Details for {{searchValue}}</h1>
+      </div>
+      <div *ngIf="!foundDeal.length>0" class="row">
+        <h4>Please wait</h4>
+      </div>
+  
+
+      <div class="row" *ngIf="foundDeal.length != 0">
+        <div class="col-md-9">
+            <h1 class="asset-title" id='assetName'>Deal</h1>
+        </div>
+        <br>
+      </div>
+        <div class="row">
+          <div class="col-md-12">
+        <table *ngFor="let d of foundDeal">
+          <tr>
+            <td>Deal Number</td>
+            <td>{{d.dealno}}</td>
+          </tr>
+          <tr>
+            <td>Date Created</td>
+            <td>{{d.timestamp | date}}</td>
+          </tr>
+          <tr>
+            <td>Time Created</td>
+            <td>{{d.timestamp | date:'HH:mm:ss Z'}}</td>
+          </tr>
+          <tr>
+            <td>Hash ID</td>
+            <td>{{d.transactionId}}</td>
+          </tr>
+        </table>
+        </div>
+        </div>
+<br>
+      <div class="row" *ngIf="foundProposal.length != 0">
+        <div class="col-md-9">
+            <h1 class="asset-title" id='assetName'>Created Proposal</h1>
+        </div>
+        <br>
+      </div>
+
+        <div class="row">
+          <div class="col-md-12">
+        <table *ngFor="let pro of foundProposal">
+          <tr>
+            <td>Proposal Number</td>
+            <td>{{pro.proposalid}}</td>
+          </tr>
+          <tr>
+            <td>Date Created</td>
+            <td>{{pro.timestamp | date}}</td>
+          </tr>
+          <tr>
+            <td>Time Created</td>
+            <td>{{pro.timestamp | date:'HH:mm:ss Z'}}</td>
+          </tr>
+          <tr>
+            <td>Hash ID</td>
+            <td>{{pro.transactionId}}</td>
+          </tr>
+        </table>
+        </div>
+        </div>
+<br>
+        <div class="row" *ngIf="foundAcceptPro.length != 0">
+          <div class="col-md-9">
+              <h1 class="asset-title" id='assetName'>Accepted Proposal</h1>
+          </div>
+          <br>
+        </div>
+        
+  
+          <div class="row">
+            <div class="col-md-12">
+          <table *ngFor="let ap of foundAcceptPro">
+            <tr>
+              <td>Proposal Number</td>
+              <td>{{ap.Proposal.split('#')[1]}}</td>
+            </tr>
+            <tr>
+              <td>Date Accepted</td>
+              <td>{{ap.timestamp | date}}</td>
+            </tr>
+            <tr>
+              <td>Time Accepted</td>
+              <td>{{ap.timestamp | date:'HH:mm:ss Z'}}</td>
+            </tr>
+            <tr>
+              <td>Hash ID</td>
+              <td>{{ap.transactionId}}</td>
+            </tr>
+          </table>
+          </div>
+          </div>
+<br>
+          <div class="row" *ngIf="foundRejectPro.length != 0">
+            <div class="col-md-9">
+                <h1 class="asset-title" id='assetName'>Rejected Proposal</h1>
+            </div>
+            <br>
+          </div>
+          
+    
+            <div class="row">
+              <div class="col-md-12">
+            <table *ngFor="let rp of foundRejectPro">
+              <tr>
+                <td>Proposal Number</td>
+                <td>{{rp.proposal.split('#')[1]}}</td>
+              </tr>
+              <tr>
+                <td>Date Rejected</td>
+                <td>{{rp.timestamp | date}}</td>
+              </tr>
+              <tr>
+                <td>Time Rejected</td>
+                <td>{{rp.timestamp | date:'HH:mm:ss Z'}}</td>
+              </tr>
+              <tr>
+                <td>Hash ID</td>
+                <td>{{rp.transactionId}}</td>
+              </tr>
+            </table>
+            </div>
+            </div>
+<br>
+            <div class="row" *ngIf="foundContract.length != 0">
+              <div class="col-md-9">
+                  <h1 class="asset-title" id='assetName'>Created Contract</h1>
+              </div>
+              <br>
+            </div>
+            
+      
+              <div class="row">
+                <div class="col-md-12">
+              <table *ngFor="let con of foundContract">
+                <tr>
+                  <td>Contract Number</td>
+                  <td>{{con.contractid}}</td>
+                </tr>
+                <tr>
+                  <td>Date Created</td>
+                  <td>{{con.timestamp | date}}</td>
+                </tr>
+                <tr>
+                  <td>Time Created</td>
+                  <td>{{con.timestamp | date:'HH:mm:ss Z'}}</td>
+                </tr>
+                <tr>
+                  <td>Hash ID</td>
+                  <td>{{con.transactionId}}</td>
+                </tr>
+              </table>
+              </div>
+              </div>
+<br>
+              <div class="row" *ngIf="foundAcceptCon.length != 0">
+                <div class="col-md-9">
+                    <h1 class="asset-title" id='assetName'>Accepted Contract</h1>
+                </div>
+                <br>
+              </div>
+              
+        
+                <div class="row">
+                  <div class="col-md-12">
+                <table *ngFor="let ac of foundAcceptCon">
+                  <tr>
+                    <td>Contract Number</td>
+                    <td>{{ac.Contract.split('#')[1]}}</td>
+                  </tr>
+                  <tr>
+                    <td>Date Accepted</td>
+                    <td>{{ac.timestamp | date}}</td>
+                  </tr>
+                  <tr>
+                    <td>Time Accepted</td>
+                    <td>{{ac.timestamp | date:'HH:mm:ss Z'}}</td>
+                  </tr>
+                  <tr>
+                    <td>Hash ID</td>
+                    <td>{{ac.transactionId}}</td>
+                  </tr>
+                </table>
+                </div>
+                </div>
+<br>
+                <div class="row" *ngIf="foundRejectCon.length != 0">
+                  <div class="col-md-9">
+                      <h1 class="asset-title" id='assetName'>Rejected Contract</h1>
+                  </div>
+                  <br>
+                </div>
+                
+          
+                  <div class="row">
+                    <div class="col-md-12">
+                  <table *ngFor="let rc of foundRejectCon">
+                    <tr>
+                      <td>Contract Number</td>
+                      <td>{{rc.Contract.split('#')[1]}}</td>
+                    </tr>
+                    <tr>
+                      <td>Date Rejected</td>
+                      <td>{{rc.timestamp | date}}</td>
+                    </tr>
+                    <tr>
+                      <td>Time Rejected</td>
+                      <td>{{rc.timestamp | date:'HH:mm:ss Z'}}</td>
+                    </tr>
+                    <tr>
+                      <td>Hash ID</td>
+                      <td>{{rc.transactionId}}</td>
+                    </tr>
+                  </table>
+                  </div>
+                  </div>
+<br>
+                  <div class="row" *ngIf="foundPO.length != 0">
+                    <div class="col-md-9">
+                        <h1 class="asset-title" id='assetName'>Created Purchase Order</h1>
+                    </div>
+                    <br>
+                  </div>
+                  
+            
+                    <div class="row">
+                      <div class="col-md-12">
+                    <table *ngFor="let po of foundPO">
+                      <tr>
+                        <td>Purchase Order Number</td>
+                        <td>{{po.POid}}</td>
+                      </tr>
+                      <tr>
+                        <td>Date Created</td>
+                        <td>{{po.timestamp | date}}</td>
+                      </tr>
+                      <tr>
+                        <td>Time Created</td>
+                        <td>{{po.timestamp | date:'HH:mm:ss Z'}}</td>
+                      </tr>
+                      <tr>
+                        <td>Hash ID</td>
+                        <td>{{po.transactionId}}</td>
+                      </tr>
+                    </table>
+                    </div>
+                    </div>
+<br>
+                    <div class="row" *ngIf="foundSO.length != 0">
+                      <div class="col-md-9">
+                          <h1 class="asset-title" id='assetName'>Created Sales Order</h1>
+                      </div>
+                      <br>
+                    </div>
+                  
+              
+                      <div class="row">
+                        <div class="col-md-12">
+                      <table *ngFor="let so of foundSO">
+                        <tr>
+                          <td>Sales Order Number</td>
+                          <td>{{so.SOid}}</td>
+                        </tr>
+                        <tr>
+                          <td>Status</td>
+                          <td>{{so.status}}</td>
+                        </tr>
+                        <tr>
+                          <td>Date Created</td>
+                          <td>{{so.timestamp | date}}</td>
+                        </tr>
+                        <tr>
+                          <td>Time Created</td>
+                          <td>{{so.timestamp | date:'HH:mm:ss Z'}}</td>
+                        </tr>
+                        <tr>
+                          <td>Hash ID</td>
+                          <td>{{so.transactionId}}</td>
+                        </tr>
+                      </table>
+                      </div>
+                      </div>
+<br>
+                      <div class="row" *ngIf="foundUpdateSO.length != 0">
+                        <div class="col-md-9">
+                            <h1 class="asset-title" id='assetName'>Updated Sales Order Status</h1>
+                        </div>
+                        <br>
+                      </div>
+                      
+                
+                        <div class="row">
+                          <div class="col-md-12">
+                        <table *ngFor="let uso of foundUpdateSO">
+                          <tr>
+                            <td>Sales Order Number</td>
+                            <td>{{uso.so.split('#')[1]}}</td>
+                          </tr>
+                          <tr>
+                            <td>Status Updated</td>
+                            <td>{{uso.status}}</td>
+                          </tr>
+                          <tr>
+                            <td>Date Updated</td>
+                            <td>{{uso.timestamp | date}}</td>
+                          </tr>
+                          <tr>
+                            <td>Time Updated</td>
+                            <td>{{uso.timestamp | date:'HH:mm:ss Z'}}</td>
+                          </tr>
+                          <tr>
+                            <td>Hash ID</td>
+                            <td>{{uso.transactionId}}</td>
+                          </tr>
+                        </table>
+                        </div>
+                        </div>
+<br>
+                        <div class="row" *ngIf="foundInvoice.length != 0">
+                          <div class="col-md-9">
+                              <h1 class="asset-title" id='assetName'>Created Invoice</h1>
+                          </div>
+                          <br>
+                        </div>
+                        
+                  
+                          <div class="row">
+                            <div class="col-md-12">
+                          <table *ngFor="let i of foundInvoice">
+                            <tr>
+                              <td>Invoice Number</td>
+                              <td>{{i.invoiceid}}</td>
+                            </tr>
+                            <tr>
+                              <td>Invoice Number</td>
+                              <td>{{i.paymentstatus}}</td>
+                            </tr>
+                            <tr>
+                              <td>Date Created</td>
+                              <td>{{i.timestamp | date}}</td>
+                            </tr>
+                            <tr>
+                              <td>Time Created</td>
+                              <td>{{i.timestamp | date:'HH:mm:ss Z'}}</td>
+                            </tr>
+                            <tr>
+                              <td>Hash ID</td>
+                              <td>{{i.transactionId}}</td>
+                            </tr>
+                          </table>
+                          </div>
+                          </div>
+<br>
+                          <div class="row" *ngIf="foundUpdatePayment.length != 0">
+                            <div class="col-md-9">
+                                <h1 class="asset-title" id='assetName'> Updated Payment Status</h1>
+                            </div>
+                            <br>
+                          </div>
+                          
+                    
+                            <div class="row">
+                              <div class="col-md-12">
+                            <table *ngFor="let upay of foundUpdatePayment">
+                              <tr>
+                                <td>Invoice Number</td>
+                                <td>{{upay.iv.split('#')[1]}}</td>
+                              </tr>
+                              <tr>
+                                <td>Status Updated</td>
+                                <td>{{upay.paymentstatus}}</td>
+                              </tr>
+                              <tr>
+                                <td>Payment Amount</td>
+                                <td>{{upay.paymentamount}}</td>
+                              </tr>
+                              <tr>
+                                <td>Payment Type</td>
+                                <td>{{upay.paymenttype}}</td>
+                              </tr>
+                              <tr>
+                                <td>Date Updated</td>
+                                <td>{{upay.timestamp | date}}</td>
+                              </tr>
+                              <tr>
+                                <td>Time Updated</td>
+                                <td>{{upay.timestamp | date:'HH:mm:ss Z'}}</td>
+                              </tr>
+                              <tr>
+                                <td>Hash ID</td>
+                                <td>{{upay.transactionId}}</td>
+                              </tr>
+                            </table>
+                            </div>
+                            </div>
+                            <br>
+                            <br>
+      
+      
+    
+
+    </div>
+
+
