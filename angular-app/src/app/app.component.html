@@ -1,0 +1,109 @@
+<!--
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<nav class="navbar navbar-inverse">
+    <div>
+      <ul class="nav navbar-nav">
+        <li class="dropdown active">
+            <a class="dropdown-toggle" data-toggle="dropdown">Assets</a>
+            <ul class="dropdown-menu scrollable-menu">
+              
+              <li><a [routerLink]="['/proposal']">Proposal</a></li>
+              
+              <li><a [routerLink]="['/contract']">Contract</a></li>
+              
+              <li><a [routerLink]="['/PO']">Purchase Order</a></li>
+              
+              <li><a [routerLink]="['/Invoice']">Invoice</a></li>
+              
+              <li><a [routerLink]="['/deal']">Deal</a></li>
+              
+              <li><a [routerLink]="['/SaleOrder']">Sales Order</a></li>
+              
+            </ul>
+        </li>
+        <!--li class="dropdown active">
+          <a class="dropdown-toggle" data-toggle="dropdown">Participants</a>
+          <ul class="dropdown-menu scrollable-menu">
+            
+            <li><a [routerLink]="['/Customer']">Customer</a></li>
+            
+            <li><a [routerLink]="['/Staff']">Staff</a></li>
+            
+          </ul>
+        </li>-->
+      <li class="dropdown active">
+        <a class="dropdown-toggle" data-toggle="dropdown">Transactions</a>
+        <ul class="dropdown-menu scrollable-menu">
+          
+          <li><a [routerLink]="['/acceptProposal']">acceptProposal</a></li>
+          
+          <li><a [routerLink]="['/rejectProposal']">rejectProposal</a></li>
+          
+          <li><a [routerLink]="['/acceptContract']">acceptContract</a></li>
+          
+          <li><a [routerLink]="['/rejectContract']">rejectContract</a></li>
+          
+          <li><a [routerLink]="['/initiatePO']">initiatePO</a></li>
+          
+          <li><a [routerLink]="['/updatePaymentStatus']">updatePaymentStatus</a></li>
+          
+          <li><a [routerLink]="['/createProposal']">createProposal</a></li>
+          
+          <li><a [routerLink]="['/createContract']">createContract</a></li>
+          
+          <li><a [routerLink]="['/createDeal']">createDeal</a></li>
+          
+          <li><a [routerLink]="['/createSO']">createSO</a></li>
+          
+          <li><a [routerLink]="['/updateSOStatus']">updateSOStatus</a></li>
+          
+          <li><a [routerLink]="['/createInvoice']">createInvoice</a></li>
+          <!--li class="nav-item" *ngFor='let link of Transactionlinks'>
+            <a class="nav-link" [routerLink]="link.path">{{ link.text }}</a>
+          </li>-->
+          
+        </ul>
+      </li>
+      <!--li class="nav-item" *ngFor="let link of links">
+        <a class="nav-link" routerLink="link.path">{{ link.text }}</a>
+      </li>-->
+      <li class="dropdown active">
+        <a class="dropdown-toggle" data-toggle="dropdown" [routerLink]="['/history']">History</a>
+      </li>
+      <li class="dropdown active">
+        <a class="dropdown-toggle" data-toggle="dropdown">Authentication</a>
+        <ul class="dropdown-menu scrollable-menu">
+          <div *ngIf="isLoggedIn; else loggedOut">
+            <li><a routerLink="logout" (click)="logout()">Logout</a></li>
+          </div>
+    
+          <ng-template #loggedOut>
+            <li><a [routerLink]="['/login']">Login</a></li>
+          </ng-template>    
+        </ul>
+      </li>
+
+      <li class="dropdown active">
+        <a class="dropdown-toggle" data-toggle="dropdown" [routerLink]="['/Customer']">You</a>
+      </li>
+      
+      </ul>
+      <div class="navbar-header">
+        <!--p class="network-name">{{ loggedUser }}</p>-->
+        <p class="navbar-brand" [routerLink]="['/home']">S&H</p>
+      </div>
+    </div>
+  </nav>
+  
+  <router-outlet></router-outlet>
