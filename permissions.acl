@@ -1,0 +1,475 @@
+/*
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+rule NetworkAdminUser {
+    description: "Grant business network administrators full access to user resources"
+    participant: "org.hyperledger.composer.system.NetworkAdmin"
+    operation: ALL
+    resource: "**"
+    action: ALLOW
+}
+
+rule NetworkAdminSystem {
+    description: "Grant business network administrators full access to system resources"
+    participant: "org.hyperledger.composer.system.NetworkAdmin"
+    operation: ALL
+    resource: "org.hyperledger.composer.system.**"
+    action: ALLOW
+}
+
+rule Permission {
+  description: "Read system"
+  participant: "ANY"
+  operation: READ
+  resource: "org.hyperledger.composer.system.**"
+  
+  action: ALLOW
+}
+
+
+rule StaffViewHistorian{
+  description: "Allow staff to read the deal"
+  participant(p): "org.acme.crmblockchain.Customer"
+  operation: READ 
+  resource(r): "org.hyperledger.composer.system.HistorianRecord"
+  condition: (r.getIdentifier() == p.getIdentifier())
+  action: ALLOW
+}
+
+rule CreateTransaction {
+  description: "Create transaction"
+  participant: "org.acme.crmblockchain.*"
+  operation: CREATE, UPDATE, READ
+  resource: "org.hyperledger.composer.system.HistorianRecord"
+  action: ALLOW
+
+
+
+}
+rule StaffCreateandReadProposal {
+   description: "Staff create proposal"
+   participant: "org.acme.crmblockchain.Staff"
+   operation: CREATE, UPDATE
+   resource: "org.acme.crmblockchain.*"
+   transaction: "org.acme.crmblockchain.createProposal"
+   action: ALLOW
+
+}
+
+rule ViewCreatedProposal{
+  description: "Allow staff to read the deal"
+  participant: "org.acme.crmblockchain.*"
+  operation: READ 
+  resource: "org.acme.crmblockchain.createProposal"
+ 
+  action: ALLOW
+
+
+}
+
+rule ViewAcceptProposal{
+  description: "Allow staff to read the deal"
+  participant: "org.acme.crmblockchain.*"
+  operation: READ 
+  resource: "org.acme.crmblockchain.acceptProposal"
+ 
+  action: ALLOW
+
+
+}
+
+
+rule ViewRejectProposal{
+  description: "Allow staff to read the deal"
+  participant: "org.acme.crmblockchain.*"
+  operation: READ 
+  resource: "org.acme.crmblockchain.rejectProposal"
+ 
+  action: ALLOW
+}
+
+rule ViewCreatedContract{
+  description: "Allow staff to read the deal"
+  participant: "org.acme.crmblockchain.*"
+  operation: READ 
+  resource: "org.acme.crmblockchain.createContract"
+ 
+  action: ALLOW
+
+
+}
+
+rule ViewAcceptContract{
+  description: "Allow staff to read the deal"
+  participant: "org.acme.crmblockchain.*"
+  operation: READ 
+  resource: "org.acme.crmblockchain.acceptContract"
+ 
+  action: ALLOW
+
+
+}
+
+
+rule ViewRejectContract{
+  description: "Allow staff to read the deal"
+  participant: "org.acme.crmblockchain.*"
+  operation: READ 
+  resource: "org.acme.crmblockchain.rejectContract"
+ 
+  action: ALLOW
+}
+
+
+rule ViewPO{
+  description: "Allow staff to read the deal"
+  participant: "org.acme.crmblockchain.*"
+  operation: READ 
+  resource: "org.acme.crmblockchain.initiatePO"
+ 
+  action: ALLOW
+}
+
+rule ViewcreateSO{
+  description: "Allow staff to read the deal"
+  participant: "org.acme.crmblockchain.*"
+  operation: READ 
+  resource: "org.acme.crmblockchain.createSO"
+ 
+  action: ALLOW
+}
+
+rule Viewcreateinvoice{
+  description: "Allow staff to read the deal"
+  participant: "org.acme.crmblockchain.*"
+  operation: READ 
+  resource: "org.acme.crmblockchain.createInvoice"
+  action: ALLOW
+}
+
+rule ViewupdateSO{
+  description: "Allow staff to read the deal"
+  participant: "org.acme.crmblockchain.*"
+  operation: READ 
+  resource: "org.acme.crmblockchain.updateSOStatus"
+  action: ALLOW
+}
+
+
+rule ViewupdatePayment{
+  description: "Allow staff to read the deal"
+  participant: "org.acme.crmblockchain.*"
+  operation: READ 
+  resource: "org.acme.crmblockchain.updatePaymentStatus"
+  action: ALLOW
+}
+
+
+rule Viewdeal{
+  description: "Allow staff to read the deal"
+  participant: "org.acme.crmblockchain.*"
+  operation: READ 
+  resource: "org.acme.crmblockchain.createDeal"
+  action: ALLOW
+}
+
+
+
+
+rule StaffCreateDeal {
+   description: "Staff create proposal"
+   participant: "org.acme.crmblockchain.Staff"
+   operation: CREATE, UPDATE
+   resource: "org.acme.crmblockchain.*"
+   transaction: "org.acme.crmblockchain.createDeal"
+   action: ALLOW
+
+}
+
+
+
+
+rule StaffViewDeal{
+  description: "Allow staff to read the deal"
+  participant(p): "org.acme.crmblockchain.*"
+  operation: READ , UPDATE 
+  resource(r): "org.acme.crmblockchain.deal"
+  condition: (r.Staffid.getIdentifier() == p.getIdentifier())
+  action: ALLOW
+
+
+}
+
+rule CustomerViewDeal{
+  description: "Allow staff to read the deal"
+  participant(p): "org.acme.crmblockchain.*"
+  operation: READ , UPDATE 
+  resource(r): "org.acme.crmblockchain.deal"
+  condition: (r.Customerid.getIdentifier() == p.getIdentifier())
+  action: ALLOW
+
+
+}
+
+rule StaffViewProposal{
+  description: "Allow staff to read the proposal"
+  participant(p): "org.acme.crmblockchain.*"
+  operation: READ, UPDATE
+  resource(r): "org.acme.crmblockchain.proposal"
+  condition: (r.Staffid.getIdentifier() == p.getIdentifier())
+  action: ALLOW
+
+
+}
+
+
+rule StaffCreateandReadContract {
+   description: "Staff create contract"
+   participant: "org.acme.crmblockchain.Staff"
+   operation: CREATE, READ
+   resource: "org.acme.crmblockchain.*"
+   transaction: "org.acme.crmblockchain.createContract"
+   action: ALLOW
+
+}
+
+
+rule StaffCreateandReadSO {
+   description: "Staff create SO"
+   participant: "org.acme.crmblockchain.Staff"
+   operation: CREATE
+   resource: "org.acme.crmblockchain.*"
+   transaction: "org.acme.crmblockchain.createSO"
+   action: ALLOW
+
+}
+
+
+rule StaffCreateandReadInvoice {
+   description: "Staff create invoice"
+   participant: "org.acme.crmblockchain.Staff"
+   operation: CREATE
+   resource: "org.acme.crmblockchain.*"
+   transaction: "org.acme.crmblockchain.createInvoice"
+   action: ALLOW
+
+}
+
+rule StaffUpdateSOstatus {
+   description: "Staff update order status"
+   participant: "org.acme.crmblockchain.Staff"
+   operation: CREATE, UPDATE
+   resource: "org.acme.crmblockchain.*"
+   transaction: "org.acme.crmblockchain.updateSOStatus"
+   action: ALLOW
+
+}
+
+rule StaffViewContract{
+  description: "Allow staff to read the contract"
+  participant(p): "org.acme.crmblockchain.*"
+  operation: READ 
+  resource(r): "org.acme.crmblockchain.contract"
+  condition: (r.Staffid.getIdentifier() == p.getIdentifier())
+  action: ALLOW
+
+
+}
+
+rule StaffViewSO{
+  description: "Allow staff to read the contract"
+  participant(p): "org.acme.crmblockchain.*"
+  operation: READ 
+  resource(r): "org.acme.crmblockchain.SaleOrder"
+  condition: (r.Staffid.getIdentifier() == p.getIdentifier())
+  action: ALLOW
+
+
+}
+
+rule StaffViewInvoice{
+  description: "Allow staff to read the contract"
+  participant(p): "org.acme.crmblockchain.*"
+  operation: READ 
+  resource(r): "org.acme.crmblockchain.Invoice"
+  condition: (r.Staffid.getIdentifier() == p.getIdentifier())
+  action: ALLOW
+
+
+}
+
+rule StaffReadStaff {
+  description: "Staff read staff"
+  participant(p): "org.acme.crmblockchain.Staff"
+  operation: READ , UPDATE
+  resource(r): "org.acme.crmblockchain.Staff"
+  condition: (r.getIdentifier() == p.getIdentifier())
+  action: ALLOW
+
+}
+
+rule StaffViewPurchaseOrder{
+  description: "Allow staff to read the PO"
+  participant(p): "org.acme.crmblockchain.*"
+  operation: READ 
+  resource(r): "org.acme.crmblockchain.PO"
+  condition: (r.Contract.Staffid.getIdentifier() == p.getIdentifier())
+  action: ALLOW
+
+
+}
+
+
+rule CustomerReadThems {
+  description: "Staff read staff"
+  participant(p): "org.acme.crmblockchain.Customer"
+  operation: READ , UPDATE
+  resource(r): "org.acme.crmblockchain.Customer"
+  condition: (r.getIdentifier() == p.getIdentifier())
+  action: ALLOW
+
+}
+
+
+
+
+
+
+rule CustomerViewProposal{
+  description: "Allow customer to read the proposal"
+  participant(p): "org.acme.crmblockchain.*"
+  operation: READ 
+  resource(r): "org.acme.crmblockchain.proposal"
+  condition: (r.Customerid.getIdentifier() == p.getIdentifier())
+  action: ALLOW
+
+
+}
+
+
+rule CustomerViewCon{
+  description: "Allow customer to read the contract"
+  participant(p): "org.acme.crmblockchain.*"
+  operation: READ 
+  resource(r): "org.acme.crmblockchain.contract"
+  condition: (r.Customerid.getIdentifier() == p.getIdentifier())
+  action: ALLOW
+
+
+}
+
+rule CustomerViewSO{
+  description: "Allow customer to read the SO"
+  participant(p): "org.acme.crmblockchain.*"
+  operation: READ 
+  resource(r): "org.acme.crmblockchain.SaleOrder"
+  condition: (r.Customerid.getIdentifier() == p.getIdentifier())
+  action: ALLOW
+
+
+}
+
+rule CustomerViewPO{
+  description: "Allow customer to read the SO"
+  participant(p): "org.acme.crmblockchain.*"
+  operation: READ 
+  resource(r): "org.acme.crmblockchain.PO"
+  condition: (r.Customerid.getIdentifier() == p.getIdentifier())
+  action: ALLOW
+
+
+}
+
+
+rule CustomerViewIV{
+  description: "Allow customer to read the invoice"
+  participant(p): "org.acme.crmblockchain.*"
+  operation: READ 
+  resource(r): "org.acme.crmblockchain.Invoice"
+  condition: (r.Customerid.getIdentifier() == p.getIdentifier())
+  action: ALLOW
+
+
+}
+
+rule CustomerApproveProposal{
+  description: "Customer accept proposal"
+  participant: "org.acme.crmblockchain.Customer"
+  operation: CREATE , UPDATE
+  resource: "org.acme.crmblockchain.*"
+  transaction: "org.acme.crmblockchain.acceptProposal"
+  action: ALLOW
+}
+
+rule CustomerRejectProposal {
+  description: "Customer reject proposal"
+  participant: "org.acme.crmblockchain.Customer"
+  operation: CREATE , UPDATE
+  resource: "org.acme.crmblockchain.*"
+  transaction: "org.acme.crmblockchain.rejectProposal"
+  action: ALLOW
+
+}
+
+rule CustomerApproveCon{
+  description: "Customer accept proposal"
+  participant: "org.acme.crmblockchain.Customer"
+  operation: CREATE , UPDATE
+  resource: "org.acme.crmblockchain.*"
+  transaction: "org.acme.crmblockchain.acceptContract"
+  action: ALLOW
+}
+
+rule CustomerRejectCon {
+  description: "Customer reject proposal"
+  participant: "org.acme.crmblockchain.Customer"
+  operation: CREATE , UPDATE
+  resource: "org.acme.crmblockchain.*"
+  transaction: "org.acme.crmblockchain.rejectContract"
+  action: ALLOW
+
+}
+
+
+rule Customerupdatepayment {
+  description: "Customer update payment"
+  participant: "org.acme.crmblockchain.Customer"
+  operation: CREATE , UPDATE
+  resource: "org.acme.crmblockchain.*"
+  transaction: "org.acme.crmblockchain.updatePaymentStatus"
+  action: ALLOW
+
+}
+
+rule CustomerIniPO{
+   description: "Cus create PO"
+   participant: "org.acme.crmblockchain.Customer"
+   operation: CREATE
+   resource: "org.acme.crmblockchain.*"
+   transaction: "org.acme.crmblockchain.initiatePO"
+   action: ALLOW
+
+}
+
+
+
+rule StaffReadCustomer {
+  description: "Staff read customer"
+  participant: "org.acme.crmblockchain.Staff"
+  operation: READ 
+  resource: "org.acme.crmblockchain.Customer"
+  action: ALLOW
+
+}
+

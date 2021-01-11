@@ -1,0 +1,317 @@
+/*
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * Write your model definitions here
+ */
+
+namespace org.acme.crmblockchain
+
+
+
+
+participant Customer identified by customerid {
+  o String customerid
+  o String customername
+  o String email
+  o String phoneNumber
+  o String address
+  
+}
+
+participant Staff identified by staffid {
+  o String staffid
+  o String staffname
+  o String email
+  o String phoneNumber
+  
+}
+
+
+
+enum status {
+  o ACCEPTED
+  o REJECTED
+  o AWAITING
+}
+asset proposal identified by proposalid {
+
+  o String proposalid
+  o String date
+  o String details
+  o String price
+  o status status
+  o String RejectReason optional
+  --> Staff Staffid
+  --> Customer Customerid
+  --> deal Deal
+  
+}
+
+transaction acceptProposal {
+  --> proposal Proposal
+  --> Customer Customerid
+  --> deal Deal
+  
+}
+
+
+transaction rejectProposal {
+  --> proposal Proposal
+  --> Customer Customerid
+  --> deal Deal
+  o String RejectReason
+}
+
+event proposalaccepted {
+  --> proposal pp
+}
+
+event proposalrejected {
+  --> proposal pp
+}
+
+asset contract identified by contractid {
+
+ o String contractid
+ o String date
+ o String details
+ o String price
+ o status status
+ o String RejectReason optional
+ --> Customer Customerid
+ --> Staff Staffid
+ --> proposal Proposalid
+ --> deal Deal
+
+}
+
+transaction acceptContract {
+  --> contract Contract
+  --> Customer Customerid
+  --> deal Deal
+}
+
+transaction rejectContract {
+  --> contract Contract 
+  --> Customer Customerid
+  --> deal Deal
+  o String RejectReason
+}
+
+event contractaccepted {
+  --> contract cc
+}
+
+event  contractrejected {
+  --> contract cc
+}
+
+asset PO identified by POid {
+  o String POid
+  o String date
+  o String details
+  --> contract Contract
+  --> Customer Customerid
+  --> deal Deal
+}
+
+transaction initiatePO {
+  o String POid
+  o String date
+  o String details
+  --> contract Contract
+  --> Customer Customerid
+  --> deal Deal
+}
+
+
+event initiateOrder {
+  --> PO po
+}
+
+asset Invoice identified by invoiceid {
+  o String invoiceid
+  o String date
+  o String price
+  o statuspayment paymentstatus
+  o String paymentamount optional
+  o String paymenttype optional
+  o String details
+  --> SaleOrder so
+  --> Customer Customerid
+  --> Staff Staffid
+  --> deal Deal
+}
+
+enum statuspayment {
+  o PAID 
+  o UNPAID
+}
+
+transaction updatePaymentStatus {
+
+  --> Invoice iv
+  --> Customer Customerid
+  --> deal Deal
+  o statuspayment paymentstatus
+  o String paymentamount
+  o String paymenttype
+  
+}
+
+event updatePaymentStatusevent {
+
+  --> Invoice iv
+  o statuspayment paymentstatus
+  o String paymentamount
+  o String paymenttype
+
+}
+
+transaction createProposal {
+  o String proposalid
+  o String date 
+  o String details
+  o String price
+  o status status
+  --> Staff Staffid
+  --> Customer Customerid
+  --> deal Deal
+
+}
+
+
+event proposalcreated {
+ --> proposal pp
+
+}
+
+
+transaction createContract {
+  o String contractid
+  o String date
+  o String details
+  o String price
+  o status status
+  --> Customer Customerid
+  --> Staff Staffid
+  --> proposal Proposalid
+  --> deal Deal
+}
+
+
+
+event contractcreated {
+  --> contract cc
+}
+
+
+
+enum orderstatus {
+  o PROCESSING
+  o SHIPPING
+  o DELIVERED
+}
+
+asset deal identified by dealno {
+
+  o String dealno
+  o String date
+  o String details
+  --> Staff Staffid
+  --> Customer Customerid
+  --> proposal  dealproposal optional
+  --> contract  dealcontract optional
+  --> PO  purchaseorder optional
+  --> SaleOrder  saleorder optional
+  --> Invoice  inv optional
+
+}
+
+transaction createDeal {
+  o String dealno
+  o String date
+  o String details
+  --> Staff Staffid
+  --> Customer Customerid
+}
+
+asset SaleOrder identified by SOid {
+  o String SOid
+  o String date
+  o String details
+  o String price
+  o orderstatus status
+  --> PO po 
+  --> Customer Customerid
+  --> Staff Staffid
+  --> deal Deal
+
+}
+
+transaction createSO {
+  o String SOid
+  o String details
+  o String date
+  o String price
+  o orderstatus status 
+  --> PO po 
+  --> deal Deal
+  --> Customer Customerid
+  --> Staff Staffid
+}
+
+event createSaleOrderevent {
+  --> SaleOrder so 
+}
+
+
+transaction updateSOStatus {
+  --> SaleOrder so
+  o orderstatus status
+  --> Staff Staffid
+  --> deal Deal
+}
+
+
+event updateSOstatusevent {
+
+  --> SaleOrder so
+  o orderstatus status
+} 
+
+
+
+
+
+
+transaction createInvoice {
+  o String invoiceid
+  o String date
+  o String price
+  o statuspayment paymentstatus
+  o String details
+  --> SaleOrder so
+  --> Customer Customerid
+  --> Staff Staffid
+  --> deal Deal
+}
+
+event createInvoiceevent{
+
+  --> Invoice iv
+}
+
+

@@ -1,0 +1,21 @@
+query GetProposalCreatedforCustomer {
+  description: "Find the Proposal created for the deal"
+  statement: 
+   SELECT org.acme.crmblockchain.createProposal
+     WHERE ( Deal == _$Deal)
+}
+
+
+query GetContractCreatedforCustomer {
+  description: "Find the Proposal created for the deal"
+  statement: 
+   SELECT org.acme.crmblockchain.createContract
+     WHERE ( Deal == _$Deal)
+}
+
+query GetProposal{
+  description: "Find the proposal"
+  statement:
+    SELECT org.acme.crmblockchain.proposal
+      WHERE ( Deal == _$Deal)
+}
